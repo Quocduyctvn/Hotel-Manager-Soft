@@ -23,8 +23,6 @@ namespace Hotel.Client.Controllers
         }
         public IActionResult Index()
         {
-            //    SetErrorMesg("askfsdkjvcbk asfcdsb");
-            //    SetSuccessMesg("askfsdkjvcbk asfcdsb 2");
             return View();
         }
         public IActionResult RentalPackage()
@@ -629,5 +627,12 @@ namespace Hotel.Client.Controllers
             return RedirectToAction("Register", "Home");
         }
         #endregion
+
+        // Tin tức
+        public IActionResult Article()
+        {
+            return View();
+        }
+
     }
 }

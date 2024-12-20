@@ -67,6 +67,90 @@ namespace Hotel.Data.Migrations
                     b.ToTable("AppAmenities");
                 });
 
+            modelBuilder.Entity("Hotel.Data.Entities.AppArticle", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("CreatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("IdCategory")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Images")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Summary")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int?>("UpdatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdCategory");
+
+                    b.ToTable("AppArticles");
+                });
+
+            modelBuilder.Entity("Hotel.Data.Entities.AppArticleCate", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("CreatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int?>("UpdatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AppArticlesCates");
+                });
+
             modelBuilder.Entity("Hotel.Data.Entities.AppBill", b =>
                 {
                     b.Property<int>("Id")
@@ -308,6 +392,56 @@ namespace Hotel.Data.Migrations
                     b.HasIndex("IdCommodities");
 
                     b.ToTable("AppComodityOrders");
+                });
+
+            modelBuilder.Entity("Hotel.Data.Entities.AppContact", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("CreatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("UpdatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AppContacts");
                 });
 
             modelBuilder.Entity("Hotel.Data.Entities.AppCustHotel", b =>
@@ -1735,7 +1869,7 @@ namespace Hotel.Data.Migrations
                             IdGroup = 1,
                             IdRole = 1,
                             Name = "admin1",
-                            Password = "$2a$10$WYPH5P7cYMFkqjTeQuLBSuuIiF7E0zWoqgzoZgRr8a89H4nZGo70m",
+                            Password = "$2a$10$e6oaR/la1dMlaICmCWjq/eCqa8JmBdgxr848OiftVzEYEdJZtSi3a",
                             Phone = "0901007221"
                         },
                         new
@@ -1747,7 +1881,7 @@ namespace Hotel.Data.Migrations
                             IdGroup = 1,
                             IdRole = 1,
                             Name = "admin2",
-                            Password = "$2a$10$WYPH5P7cYMFkqjTeQuLBSuuIiF7E0zWoqgzoZgRr8a89H4nZGo70m",
+                            Password = "$2a$10$e6oaR/la1dMlaICmCWjq/eCqa8JmBdgxr848OiftVzEYEdJZtSi3a",
                             Phone = "0945255664"
                         });
                 });
@@ -1761,6 +1895,17 @@ namespace Hotel.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("appHotels");
+                });
+
+            modelBuilder.Entity("Hotel.Data.Entities.AppArticle", b =>
+                {
+                    b.HasOne("Hotel.Data.Entities.AppArticleCate", "AppArticleCate")
+                        .WithMany("AppArticles")
+                        .HasForeignKey("IdCategory")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppArticleCate");
                 });
 
             modelBuilder.Entity("Hotel.Data.Entities.AppBill", b =>
@@ -2152,6 +2297,11 @@ namespace Hotel.Data.Migrations
             modelBuilder.Entity("Hotel.Data.Entities.AppAmenity", b =>
                 {
                     b.Navigation("appRoomCateAmenities");
+                });
+
+            modelBuilder.Entity("Hotel.Data.Entities.AppArticleCate", b =>
+                {
+                    b.Navigation("AppArticles");
                 });
 
             modelBuilder.Entity("Hotel.Data.Entities.AppBookingRoom", b =>

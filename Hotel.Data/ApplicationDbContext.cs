@@ -47,7 +47,10 @@ namespace Hotel.Data
 		public DbSet<AppBill> AppBill { get; set; }
 		public DbSet<AppIncurredFee> AppIncurredFee { get; set; }
 
-		protected override void OnModelCreating(ModelBuilder modelBuilder)  // Fluent API
+        public DbSet<AppArticle> AppArticles { get; set; }
+        public DbSet<AppArticleCate> AppArticlesCates { get; set; }
+        public DbSet<AppContact> AppContacts{ get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)  // Fluent API
 		{
 			//modelBuilder.ApplyConfiguration(new AppRentalPackageCateCofig());
 			//modelBuilder.ApplyConfiguration(new AppRentalPackageConfig());
